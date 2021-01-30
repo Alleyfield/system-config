@@ -1,0 +1,40 @@
+[user]
+	name = Mikko Kujapelto
+[core]
+  editor = nvim
+  autocrlf = input
+  pager = less -+$LESS -FRX
+[color]
+  status = auto
+  diff = auto
+  branch = auto
+  interactive = auto
+  sh = auto
+[alias]
+  st = status
+      ci = commit
+      co = checkout
+      b = branch
+  lg2 = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %C(magenta)%b %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  s = status
+  br = for-each-ref --sort=committerdate refs/heads/ refs/remotes --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) %(contents:subject)%(color:bold blue) <%(authorname)> %(color:reset)%(color:green)(%(committerdate:relative))%(color:reset)'
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+[rebase]
+	autosquash = true
+  autoStash = true
+[push]
+  default = current
+[fetch]
+  prune = true
+[pull]
+	rebase = true
+[sequence]
+	editor = interactive-rebase-tool
+[http]
+	sslVerify = true
