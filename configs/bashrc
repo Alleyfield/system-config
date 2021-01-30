@@ -1,0 +1,100 @@
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+
+chrome() {
+  read url
+    # opens chrome without borders
+    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --app=$url
+}
+
+localhostChrome() {
+    # opens chrome without borders
+    /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --app="http://localhost:3000"
+}
+
+port() {
+  echo Listing process listening port: $1
+    lsof -nP -i4TCP:$1 | grep LISTEN
+}
+
+tmx() {
+  if [ $# -eq 0 ]
+    then
+      tmux ls
+    else
+      tmux attach-session -t $1
+  fi
+}
+
+
+tmxd() {
+  if [ $# -eq 0 ]
+    then
+      echo "give the id of the session to detach"
+      tmux ls
+    else
+      tmux detach-session -t $1
+  fi
+}
+
+dit() {
+ docker run -it $1 /bin/bash
+}
+
+alias src='source ~/.bashrc'
+
+alias ls='ls -la'
+
+alias f='find ./ | grep -i --colour'
+alias x='exit'
+which ag &>/dev/null && alias g='ag'
+which rg &>/dev/null && alias g='rg'
+
+# vi mode in bash
+set -o vi
+# display whether in normal or insert mode
+set show-mode-in-prompt on
+set vi-ins-mode-string "(ins) "
+set vi-cmd-mode-string "(cmd) "
+# display whether in normal or insert mode
+
+alias s='git status'
+alias v="nvim"
+alias co="git checkout"
+alias c="clear"
+alias devbrowser='chrome & localhostChrome'
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+
+# Otherwise command-t opening in a split window in vim does not work
+stty -ixon
+
+# colors for man pages and less
+# Get color support for 'less'
+export LESS="--RAW-CONTROL-CHARS"
+
+# Use colors for less, man, etc.
+[[ -f ~/.LESS_TERMCAP ]] && . ~/.LESS_TERMCAP
+
+parse_git_branch() {
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+# hide unneccessary information and display git branch
+export PS1="\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] "
+
+[ -e "$HOME/.scripts/grepedit.sh" ] && alias ge='~/.scripts/grepedit.sh'
+
+# Load pyenv automatically by adding
+# the following to ~/.bashrc:
+# DISABLED FOR NVIM TO WORK !!!
+export PATH="$HOME/.pyenv/bin:$PATH"
+export PATH="$HOME/Library/Python/2.7/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+export PGHOST="localhost"
+
+# Neovim doesn't play nice with ööä and clipboard otherwise
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
