@@ -1,0 +1,484 @@
+" COLOR SETUP
+"set t_Co=256
+syntax on
+"set background=dark
+"colorscheme hybrid
+"" Set the Font
+"set gfn=Monaco:h14
+
+" Shared clipboard
+set clipboard=unnamed
+
+" Show all kinds of info in the statusline
+:set laststatus=2
+
+set statusline=
+set statusline+=\ %f%h%m
+set statusline+=%=
+set statusline+=\ 
+
+" Ehdottelut
+set sw=2
+" Hiiri
+set mouse=a
+
+" Map § to esc because macbook touchbar esc
+inoremap § <esc>
+
+" Nerdtree setup
+" " Open nerdtree when vim is opened without defining a file
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Ctrl + n mapped to ♞ in iterm to open nerdtree
+map ♞ :NERDTreeToggle <CR>
+" Nerdtree window opens on right
+let g:NERDTreeWinPos = "right"
+:let g:NERDTreeWinSize=70
+
+" cmd - f12 mapped to Ț
+" dictation mapped "Delete line" to Ț in iterm
+map! Ț <Esc>dd
+
+" cmd - f11 mapped to J
+" dictation mapped "Word left" to Ț in iterm
+
+map Ĵ <Esc>b
+
+" cmd - f10 mapped to r
+" dictation mapped "Undo that" to Ț in iterm
+
+map ř <Esc>u
+
+" cmd - f09 mapped to s
+" dictation mapped "Word right" to s in iterm
+
+map ş <Esc>e
+
+map <Leader>w :w<cr>
+
+" Leader r to resize all windows to equal dimensions
+map <Leader>r <c-w>=
+
+" http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_curso"
+"":nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
+:nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gc<Left><Left><Left>
+
+
+" SPACE AS LEADER
+" Don't use it in insert mode ... otherwise tabs suck
+"let mapleader = "\<Space>"
+map <Space> <leader>
+
+" Replace word under cursor with register 0
+map <Leader>p cw<C-r>0<ESC>
+
+
+" Jump between windows by space + movement
+map <Leader>j :wincmd j <CR>
+map <Leader>k :wincmd k <CR>
+map <Leader>h :wincmd h <CR>
+map <Leader>l :wincmd l <CR>
+
+" Use space + n to open nerdtree
+map <Leader>n :NERDTreeToggle<CR>
+
+" Use space + g to open git history
+map <Leader>g :GV<CR>
+
+" Use space + n to choose a specific tab
+noremap <leader>1 1gt
+noremap <leader>2 2gt
+noremap <leader>3 3gt
+noremap <leader>4 4gt
+noremap <leader>5 5gt
+noremap <leader>6 6gt
+noremap <leader>7 7gt
+noremap <leader>8 8gt
+noremap <leader>9 9gt
+noremap <leader>0 :tablast<cr>
+
+
+" Highlight the character that is on 81
+:2mat ErrorMsg '\%81v.'
+
+" Keybindings
+" Ctrl + S to save a file
+" If the current buffer has never been saved, it will have no name,
+" " call the file browser to save it, otherwise just save it.
+command! -nargs=0 -bar Update if &modified
+      \|    if empty(bufname('%'))
+      \|        browse confirm write
+      \|    else
+      \|        confirm write
+      \|    endif
+      \|  endif
+nnoremap <silent> <c-s> :<C-u>Update<CR>
+" Ctrl + s can be used in insert mode with below
+:inoremap <c-s> <Esc>:Update<CR>
+
+" Map character below ctrl+s as that's shortcut for saving
+map! ° <c-s>
+nmap ° <c-s>
+
+" use the + and - minus key incrase
+" " and decrease window
+ if bufwinnr(1)
+     map <k <C-W>+
+     map - <C-W>-
+ endif
+
+" F keys mappings
+"
+" F1 uncomment line
+" F2 to comment line
+map <F1> <esc>0i//<esc>
+map <F2> <esc>0xx<esc>
+
+" F3 to re-source the file (e.g. vimrc)
+map <F3> :so %<CR>
+
+" F5 to save
+map <F5> <esc><c-s>
+
+" F5 to input ' marks around word
+" map <F5> ciw'<C-r>"'<esc>
+
+" Pressing , twice adds a semicolon at the end of line
+inoremap ,, <esc>A;
+nnoremap ,, A;
+"
+" Pressing " or '' twice adds quotation marks around word
+nnoremap "" ciw"<C-r>""<esc>
+nnoremap '' ciw'<C-r>"'<esc>
+
+" Pressing c + ""  uncomments a word 
+nnoremap c" ciw<esc>la<Space><esc>pBi<BS><BS><BS><esc>E
+
+" Pressing y + " copies line and adds quotation marks to console.log(word)
+inoremap y" yyPA<esc>bciw"<C-r>""<esc>
+
+" Map character below to open current window in full screen
+" as the character is mapped into ctrl + i in iterm
+nmap <Leader>i :tabnew %<CR>
+nmap ȩ :tabnew %<CR>
+map! ȩ <Esc>:tabnew %<CR>
+map! <Leader>i <Esc>:tabnew %<CR>
+
+nmap <Leader>q :q<CR>
+map <Leader>q :q<CR>
+
+
+map <A-j> <C-e>
+map <A-k> <C-y>
+
+
+" Running prettier on save
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.yaml,*.html PrettierAsync
+
+
+" Add a ";" at the end of the line by pressing
+" ctrl + , (mapped in iTerm)
+nmap ϣ <ESC>A;<ESC>
+map! ϣ <ESC>A;<ESC>
+
+" Add a curly brace at the end of a line by pressing
+" ctrl + 9
+nmap Ӂ A {<CR><CR><Esc>ki<Tab>
+map! Ӂ A {<CR><CR><Esc>ki<Tab>
+
+
+
+" Map Ύ to :q command - Ύ is mapped to cmd + q in iterm
+map! Ύ <Esc>:q<CR>
+nmap Ύ :q<CR>
+
+" Use F9 to toggle fold open/close
+inoremap <F9> <C-O>za
+nnoremap <F9> za
+onoremap <F9> <C-C>za
+vnoremap <F9> zf
+
+" DISABLED using TAB as fold control ... code suggestions conflicts otherwise
+"inoremap <Tab> <C-O>za
+"nnoremap <Tab> za
+"onoremap <Tab> <C-C>za
+"vnoremap <Tab> zf
+
+
+set foldmethod=syntax
+set foldlevelstart=1
+let javaScript_fold=1
+let xml_syntax_folding=1
+
+" Running a screen within VIM /.vim/scripts/sceen.vim
+" and setting height
+:let g:ScreenImpl = 'Tmux'
+:let g:ScreenShellHeight = 6
+
+" auto-completion for HTML and XML tags
+"":let g:closetag_html_style=1
+"":source ~/.vim/scripts/closetag.vim
+" And setup to fix bug E121:
+"if !exists("b:unaryTagsStack") || exists("b:closetag_html_style")
+""    if &filetype == "html" || exists("b:closetag_html_style")
+"       let b:unaryTagsStacktack="area base br dd dt hr img input link meta param"
+"    else " for xml and xsl
+"        let b:unaryTagsStack=""
+""    endif
+"endif
+"
+"if !exists("b:unaryTagsStack")
+"    let b:unaryTagsStack=""
+"endif
+
+" Press F5 to run python script
+"autocmd FileType python nnoremap <buffer> <F5> :exec '!python' shellescape(@%, 1)<cr>
+
+
+" Pydictionary - Code Completion for Python
+"let g:pydiction_location = '/Users/mikko.kujapelto/.vim/bundle/pydiction/complete-dict'
+" The number of suggested autocompletions for python
+"let g:pydiction_menu_height = 3
+
+" SMART INDENTATION FOR JAVASCRIPT
+set smartindent
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
+
+" VUNDLE SETUP VUNDLE SETUP VUNDLE SETUP
+" VUNDLE SETUP VUNDLE SETUP VUNDLE SETUP
+" "You have set nocompatible and filetype off ... this spells trouble
+" https://github.com/SirVer/ultisnips/issues/325
+"set nocompatible              " be iMproved, required
+"filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+"set rtp+=$HOME/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/.vim/bundle/vundle/')
+
+Plugin 'ludovicchabant/vim-gutentags'
+" Open tags in a new split
+map <silent><Leader>e <C-w><C-]>
+
+
+
+" let Vundle manage Vundle, required
+Plugin 'gmarik/Vundle.vim'
+"
+" MANUALLY ADDED PLUGINS MANUALLY ADDED PLUGINS
+" FOR JAVACRIPT FOR JAVACRIPT FOR JAVASCRIPT
+Bundle "pangloss/vim-javascript"
+Bundle "othree/javascript-libraries-syntax.vim"
+"Bundle "burnettk/vim-angular"
+
+Plugin 'yuratomo/w3m.vim'
+
+" ack search for vim
+Plugin 'mileszs/ack.vim'
+" use ag instead of ack on searches
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" Vim git stuff and things
+Bundle 'tpope/vim-fugitive'
+Bundle 'junegunn/gv.vim'
+
+" Python autocompletion
+"Plugin 'davidhalter/jedi-vim'
+
+" Command-T fast fuzzy search of files
+Plugin 'wincent/command-t'
+" Opening file in command-t browser in a new split
+map <Leader>d <C-s>
+map <Leader>i <C-i>
+" command-t results can be browsed with alt-j/k
+" mapped in iTerm
+map Đ <Down>
+map ű <Up>
+
+" Bring up Command t with <leader>t
+
+" jshint - syntax checker for javascript
+Bundle "wookiehangover/jshint.vim"
+" Only check syntax on file save
+let JSHintUpdateWriteOnly=1
+let g:JSHintHighlightErrorLine = 0
+
+" Match tag for HTML tag matching higlights
+Plugin 'Valloric/MatchTagAlways'
+let g:mta_filetypes = {
+    \ 'html' : 1,
+    \ 'hbs' : 1,
+    \ 'xml' : 1,
+    \}
+
+" NERDTREE
+Bundle 'scrooloose/nerdtree'
+
+" Perl plugins
+"Plugin 'vim-perl/vim-perl'
+
+Plugin 'scrooloose/syntastic'
+" Use syntastic on file open, not just when saving
+let g:syntastic_check_on_open=1
+
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'nathanaelkane/vim-indent-guides'
+
+" Add a closing quote / bracket etc
+Plugin 'Raimondi/delimitMate'
+" When editing Javascript - typing in curly brace and hitting enter
+" adds a new line and puts cursor into new line
+autocmd FileType javascript inoremap {<CR> {<CR>}<Esc><S-o>
+
+
+Plugin 'Valloric/YouCompleteMe'
+
+
+" tweaks to YCM's config
+" YCM gives you popups and splits by default that some people might not
+" like, so these should tidy it up a bit for you.
+" let g:ycm_add_preview_to_completeopt=0
+" let g:ycm_confirm_extra_conf=0
+
+map <Leader>o :YcmCompleter GoTo <CR>
+
+" logging for youcompleteme because it's crashing all the time ...
+"let g:ycm_keep_logfiles = 1
+"let g:ycm_log_level = 'debug'
+
+" Youcompleteme open definitions 
+
+"" TERN for vim - Javascript editing support
+" Provides better autocomplete for youcompleteme
+Plugin 'marijnh/tern_for_vim'
+
+" Distraction distraction free writing mode - enabled with :Goyo
+Plugin 'junegunn/goyo.vim'
+" leader f to fullscreen
+map <Leader>f :Goyo<cr>
+
+let s:hidden_all = 0
+function! ToggleHiddenAll()
+    if s:hidden_all  == 0
+        let s:hidden_all = 1
+        set noshowmode
+        set noruler
+        set laststatus=0
+        set noshowcmd
+    else
+        let s:hidden_all = 0
+        set showmode
+        set ruler
+        set laststatus=2
+        set showcmd
+    endif
+endfunction
+" Double tap on space hides all
+"map <Space><Space> :call ToggleHiddenAll()<CR> :Goyo<CR>
+"nnoremap <Space><Space> :call ToggleHiddenAll()<CR> :Goyo<CR>
+
+" Typescript syntax highlighting
+Plugin 'leafgarland/typescript-vim'
+Plugin 'peitalin/vim-jsx-typescript'
+" TYPESCRIPTCOLORING
+" dark red
+hi tsxTagName guifg=#E06C75
+
+" orange
+hi tsxCloseString guifg=#F99575
+hi tsxCloseTag guifg=#F99575
+hi tsxAttributeBraces guifg=#F99575
+hi tsxEqual guifg=#F99575
+
+" yellow
+hi tsxAttrib guifg=#F8BD7F cterm=italic
+
+" light-grey
+hi tsxTypeBraces guifg=#999999
+" dark-grey
+hi tsxTypes guifg=#666666
+hi ReactState guifg=#C176A7
+hi ReactProps guifg=#D19A66
+hi Events ctermfg=204 guifg=#56B6C2
+hi ReduxKeywords ctermfg=204 guifg=#C678DD
+hi WebBrowser ctermfg=204 guifg=#56B6C2
+hi ReactLifeCycleMethods ctermfg=204 guifg=#D19A66
+
+" set filetypes as typescript.tsx
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+
+" TYPESCRIPTCOLORING
+" https://github.com/peitalin/vim-jsx-typescript
+
+" ULTISNIPS SETTINGS
+" Track the engine.
+Plugin 'SirVer/ultisnips'
+Plugin 'prettier/vim-prettier'
+"
+" " Snippets are separated from the engine. Add this if you want them:
+ Plugin 'honza/vim-snippets'
+
+" vue.js syntax highlighting
+Plugin 'posva/vim-vue'
+let g:vue_disable_pre_processors=1
+"
+" " Trigger configuration. Do not use <tab> if you use
+" https://github.com/Valloric/YouCompleteMe.
+" Map Shift + Space to ✠ as that's mapped to S + Space in iTerm2
+inoremap Ô <F8>
+map! Ô <F8>
+let g:UltiSnipsExpandTrigger="<F8>"
+let g:UltiSnipsJumpForwardTrigger="<C-n>"
+let g:UltiSnipsJumpBackwardTrigger="<C-b>"
+
+"let g:UltiSnipsSnippetDirectories =["AngularSnips"]
+" " If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+" ULTISNIPS SETTINGS
+
+" ANGULAR SNIPS FOR ULTISNIP
+" Plugin 'matthewsimo/angular-vim-snippets'
+" ANGULAR SNIPS FOR ULTISNIP
+
+:set number
+
+" JAVASCRIPT LIBRARIES SYNTAX COMPLETION
+" autocmd BufReadPre *.js let g:javascript_lib_use_jquery = 1
+" autocmd BufReadPre *.js let g:javascript_lib_use_underscore = 0
+" autocmd BufReadPre *.js let g:javascript_lib_use_backbone = 0
+autocmd BufReadPre *.js let g:javascript_lib_use_prelude = 0
+" autocmd BufReadPre *.js let g:javascript_lib_use_angularjs = 1
+autocmd BufReadPre *.js let g:javascript_lib_use_express = 1
+autocmd BufReadPre *.js let g:javascript_lib_use_react = 1
+
+let g:syntastic_javascript_checkers = ['jshint']
+
+let g:javascript_enable_domhtmlcss = 1
+
+" javascript-libraries-syntax.vim config
+let g:used_javascript_libs = 'react, chai'
+
+" highlight hbs syntax as html
+au BufReadPost *.hbs set syntax=html
+"
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
+" To ignore plugin indent changes, instead use:
+filetype plugin on
+"
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+" see :h vundle for more details or wiki for FAQ
+" Put your non-Plugin stuff after this line
