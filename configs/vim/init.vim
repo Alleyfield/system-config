@@ -1,4 +1,6 @@
 syntax on
+colorscheme nord
+hi StatusLine ctermfg=yellow "colorscheme had not set statusline color
 set ruler               " Show the line and column numbers of the cursor.
 set textwidth=0         " Hard-wrap long lines as you type them.
 set linespace=0         " Set line-spacing to minimum.
@@ -28,6 +30,13 @@ set tabstop=2
 set shiftwidth=2
 set expandtab
 set wildignore+=*/node_modules/* "Dont search with command-p
+" Always show at least two line above/below the cursor.
+set scrolloff=2
+" Blink cursor
+:set guicursor=a:blinkon100
+
+:set number
+:set numberwidth=8
 
 " SPACE AS LEADER
 " Don't use it in insert mode ... otherwise tabs suck
